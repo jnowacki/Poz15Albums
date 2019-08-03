@@ -43,9 +43,17 @@ ${param.submitted}
 <c:if test="${param.submitted}">
     <jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
     <jsp:setProperty name="newAlbum" property="*"/>
-    <%
-    ((List<Album>) session.getAttribute("albums")).add(newAlbum);
-%>
+
+    <c:choose>
+        <c:when test="${newAlbum.valid}">
+            <%
+                ((List<Album>)session.getAttribute("albums")).add(newAlbum);
+            %>
+        </c:when>
+        <c:otherwise>
+            <h1>Album data invalid!<br></h1>
+        </c:otherwise>
+    </c:choose>
 </c:if>
 
 <table>

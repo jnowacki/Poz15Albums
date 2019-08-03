@@ -42,6 +42,13 @@ public class Album {
         this.year = year;
     }
 
+    public boolean isValid() {
+        return title != null && !title.isEmpty()
+                && artist != null && !artist.isEmpty()
+                && genre != null && !genre.isEmpty()
+                && year > 1900;
+    }
+
     @Override
     public String toString() {
         return "Album{" +

@@ -23,14 +23,27 @@
 
 <body>
 
+<%
+    if(session.getAttribute("albums") == null) {
+        session.setAttribute("albums", new ArrayList<Album>());
+    }
+%>
 
-<form method="post" action="/JSP_Demo">
+<form method="post">
     Title:<br><input type="text" name="title"><br>
     Artist:<br><input type="text" name="artist"><br>
     Year:<br><input type="text" name="year"><br>
     Genre:<br><input type="text" name="genre"><br>
     <input type="submit">
 </form>
+
+<jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
+<jsp:setProperty name="newAlbum" property="*"/>
+
+name: ${newAlbum.title}
+artist: ${newAlbum.artist}
+year: ${newAlbum.year}
+genre: ${newAlbum.genre}
 
 <%
     List<Album> albums = new ArrayList<>();
@@ -54,34 +67,6 @@
 
     session.setAttribute("albums", albums);
 %>
-<table>
-    <tr>
-        <th>Lp.</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Year</th>
-        <th>Genre</th>
-    </tr>
-
-    <%
-        for (int i = 0; i < albums.size(); i++) {
-    %>
-    <tr>
-        <td><%= i %>
-        </td>
-        <td><%= albums.get(i).getTitle()%>
-        </td>
-        <td><%= albums.get(i).getArtist()%>
-        </td>
-        <td><%= albums.get(i).getYear()%>
-        </td>
-        <td><%= albums.get(i).getGenre()%>
-        </td>
-    </tr>
-    <%}%>
-
-
-</table>
 
 <table>
     <tr>

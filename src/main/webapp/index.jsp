@@ -23,6 +23,7 @@
 
 <body>
 
+
 <form method="post" action="/JSP_Demo">
     Title:<br><input type="text" name="title"><br>
     Artist:<br><input type="text" name="artist"><br>
@@ -50,6 +51,8 @@
 
     albums.add(album1);
     albums.add(album2);
+
+    session.setAttribute("albums", albums);
 %>
 <table>
     <tr>
@@ -76,8 +79,29 @@
         </td>
     </tr>
     <%}%>
+
+
 </table>
 
+<table>
+    <tr>
+        <th>Lp.</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Genre</th>
+    </tr>
+    <c:forEach items="${sessionScope.albums}" var="album" varStatus="loop">
+        <tr>
+            <td>${loop.index}</td>
+            <td>${album.title}</td>
+            <td>${album.artist}</td>
+            <td>${album.year}</td>
+            <td>${album.genre}</td>
+        </tr>
+    </c:forEach>
+
+</table>
 
 </body>
 </html>

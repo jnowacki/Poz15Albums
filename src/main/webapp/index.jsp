@@ -29,6 +29,8 @@
     }
 %>
 
+${param.submitted}
+
 <form method="post">
     <input type="hidden" name="submitted" value="true">
     Title:<br><input type="text" name="title"><br>
@@ -38,12 +40,13 @@
     <input type="submit">
 </form>
 
-<jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
-<jsp:setProperty name="newAlbum" property="*"/>
-
-<%
+<c:if test="${param.submitted}">
+    <jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
+    <jsp:setProperty name="newAlbum" property="*"/>
+    <%
     ((List<Album>) session.getAttribute("albums")).add(newAlbum);
 %>
+</c:if>
 
 <table>
     <tr>
@@ -55,7 +58,7 @@
     </tr>
     <c:forEach items="${sessionScope.albums}" var="album" varStatus="loop">
         <tr>
-            <td>${loop.index}</td>
+            <td>${loop.count}</td>
             <td>${album.title}</td>
             <td>${album.artist}</td>
             <td>${album.year}</td>

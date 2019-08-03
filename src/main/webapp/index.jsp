@@ -24,12 +24,13 @@
 <body>
 
 <%
-    if(session.getAttribute("albums") == null) {
+    if (session.getAttribute("albums") == null) {
         session.setAttribute("albums", new ArrayList<Album>());
     }
 %>
 
 <form method="post">
+    <input type="hidden" name="submitted" value="true">
     Title:<br><input type="text" name="title"><br>
     Artist:<br><input type="text" name="artist"><br>
     Year:<br><input type="text" name="year"><br>
@@ -40,32 +41,8 @@
 <jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
 <jsp:setProperty name="newAlbum" property="*"/>
 
-name: ${newAlbum.title}
-artist: ${newAlbum.artist}
-year: ${newAlbum.year}
-genre: ${newAlbum.genre}
-
 <%
-    List<Album> albums = new ArrayList<>();
-
-    Album album1 = new Album();
-
-    album1.setTitle("1st album");
-    album1.setArtist("1st artist");
-    album1.setYear(2001);
-    album1.setGenre("rock");
-
-    Album album2 = new Album();
-
-    album2.setTitle("2nd album");
-    album2.setArtist("2nd artist");
-    album2.setYear(2002);
-    album2.setGenre("blues");
-
-    albums.add(album1);
-    albums.add(album2);
-
-    session.setAttribute("albums", albums);
+    ((List<Album>) session.getAttribute("albums")).add(newAlbum);
 %>
 
 <table>

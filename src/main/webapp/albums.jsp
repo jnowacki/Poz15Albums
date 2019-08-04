@@ -29,13 +29,6 @@
 
 <body>
 
-<%--Jeśli nie ma w sesji atrybutu albums, zainicjuj go pustą listą--%>
-<%
-    if (session.getAttribute("albums") == null) {
-        session.setAttribute("albums", new ArrayList<Album>());
-    }
-%>
-
 <%--Formularz z polami. Nazwy pól (atrybut 'name' odpowiadają nazwom setterów w klasie--%>
 <%--Ukryte pole pozwala sprawdzić, czy formularz został wysłany, czy też strona jest
 otwarta po raz pierwszy--%>

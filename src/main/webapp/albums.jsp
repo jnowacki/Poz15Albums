@@ -33,7 +33,6 @@
 <%--Ukryte pole pozwala sprawdzić, czy formularz został wysłany, czy też strona jest
 otwarta po raz pierwszy--%>
 <form method="post">
-    <input type="hidden" name="submitted" value="true">
     Title:<br><input type="text" name="title"><br>
     Artist:<br><input type="text" name="artist"><br>
     Year:<br><input type="text" name="year"><br>
@@ -41,29 +40,8 @@ otwarta po raz pierwszy--%>
     <input type="submit">
 </form>
 
-<%--Czy formularz został wysłany (submitted == true)?--%>
-<c:if test="${param.submitted}">
-
-    <%--Użycie java beans - zadeklarowanie beana--%>
-    <jsp:useBean id="newAlbum" class="pl.jnowacki.Album"/>
-    <%--Użycie java beans - przypisanie przez settery wartość z formularza--%>
-    <jsp:setProperty name="newAlbum" property="*"/>
-
-    <c:choose>
-
-        <%--czy metoda isValid albumu zwraca true--%>
-        <c:when test="${newAlbum.valid}">
-
-            <%--zwraca true - dodaj album--%>
-            <%
-                ((List<Album>)session.getAttribute("albums")).add(newAlbum);
-            %>
-        </c:when>
-        <c:otherwise>
-            <%--zwraca false - wyświetl komunikat--%>
-            <h1>Album data invalid!<br></h1>
-        </c:otherwise>
-    </c:choose>
+<c:if test="${requestScope.invalid}">
+    <h1>Album data invalid!</h1>
 </c:if>
 
 <table>

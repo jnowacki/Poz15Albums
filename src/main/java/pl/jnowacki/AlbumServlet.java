@@ -29,7 +29,13 @@ public class AlbumServlet extends HttpServlet {
         String title = req.getParameter("title");
         String artist = req.getParameter("artist");
         String genre = req.getParameter("genre");
-        int year = Integer.parseInt(req.getParameter("year"));
+        int year = 0;
+
+        try {
+            year = Integer.parseInt(req.getParameter("year"));
+        } catch (NumberFormatException e){
+            System.out.println("Year was invalid");
+        }
 
         Album album = new Album(title, artist, genre, year);
 
